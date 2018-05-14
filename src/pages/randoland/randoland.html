@@ -1,0 +1,33 @@
+<!--
+  Generated template for the Randoland page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>randoland</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let rando of list" (click)="goToDetail(rando)" class="card">
+    <img class="rando_img" src={{rando.img}}/>
+    <ion-card-content>
+      <ion-card-header>{{rando.name}}</ion-card-header>
+      <div>
+        <p>{{rando.adresse}}</p>
+        <p>{{rando.desc}}</p>
+        <span>~{{rando.temps}}</span>
+        <span>~{{rando.dist}}m</span>
+        <div style="display: flex;">
+          <span *ngFor="let index of full_stars(rando.note)"><img src="../../assets/icon/star_full.png" class="star"/></span>
+          <span *ngFor="let index of empty_stars(rando.note)"><img class="star" src="../../assets/icon/star_empty.png"/></span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
