@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
+import { CurrentRando } from "../current-rando/current-rando";
 //$IMPORTSTATEMENT
 
 /**
@@ -12,13 +13,15 @@ import { Rando } from "../../model/rando";
 //$IONICPAGE
 @Component({
   selector: 'page-randoland-detail',
-  templateUrl: 'randoland-detail.html',
+  templateUrl: 'randoland-detail.html'
 })
 export class RandolandDetail {
   private _rando: Rando;
+  public current: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this._rando = navParams.get("rando");
+    this.current = CurrentRando;
   }
 
   public get rando(): Rando {

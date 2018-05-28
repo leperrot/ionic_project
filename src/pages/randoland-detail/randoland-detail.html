@@ -28,6 +28,9 @@
           <span *ngFor="let index of empty_stars(rando.note)"><img class="star" src="../../assets/icon/star_empty.png"/></span>
         </div>
       </div>
+      <div>
+        <button ion-button [navPush]="current" [navParams]="rando">Start</button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

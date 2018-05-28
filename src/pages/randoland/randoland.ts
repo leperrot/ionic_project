@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
-import {RandolandDetail} from "../randoland-detail/randoland-detail";
+import { RandolandDetail } from "../randoland-detail/randoland-detail";
 
 //$IMPORTSTATEMENT
 

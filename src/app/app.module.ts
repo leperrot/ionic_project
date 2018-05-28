@@ -12,6 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Randoland } from "../pages/randoland/randoland";
 import { RandolandDetail } from "../pages/randoland-detail/randoland-detail";
+import { CurrentRando } from "../pages/current-rando/current-rando";
+import { Geolocation } from "@ionic-native/geolocation";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { RandolandDetail } from "../pages/randoland-detail/randoland-detail";
     HomePage,
     TabsPage,
     Randoland,
-    RandolandDetail
+    RandolandDetail,
+    CurrentRando
   ],
   imports: [
     BrowserModule,
@@ -35,11 +38,13 @@ import { RandolandDetail } from "../pages/randoland-detail/randoland-detail";
     HomePage,
     TabsPage,
     Randoland,
-    RandolandDetail
+    RandolandDetail,
+    CurrentRando
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
