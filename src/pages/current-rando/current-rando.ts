@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
 import { Geolocation } from '@ionic-native/geolocation';
-
-
+import { LocationTracker } from '../../providers/location-tracker';
 //$IMPORTSTATEMENT
 
 /**
@@ -23,13 +22,14 @@ export class CurrentRando {
   private _rando: Rando;
   private _pos: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public locationTracker: LocationTracker) {
     this._rando = navParams.get("rando");
   }
 
-  initMap(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this._pos = { lat: resp.coords.latitude, lng: resp.coords.longitude };
+  initMap() {
+    this.start();
+    /*this.geolocation.getCurrentPosition().then((resp) => {
+      this._pos = {lat: resp.coords.latitude, lng: resp.coords.longitude};
       var map = new google.maps.Map(
         this.mapElement.nativeElement,
         {
@@ -40,23 +40,38 @@ export class CurrentRando {
       var marker = new google.maps.Marker(
         {
           position: this._pos,
-          draggable: true,
           animation: google.maps.Animation.DROP,
           map: map
         }
       );
-      marker.addListener('click', toggleBounce);
     }).catch((err) => {
       console.log(err);
-    });
+    });*/
+    var map = new google.maps.Map(
+      this.mapElement.nativeElement,
+      {
+        center: {
+          lat: this.locationTracker.lat,
+          lng: this.locationTracker.lng
+        },
+        zoom: 14
+      }
+    );
+    var marker = new google.maps.Marker(
+      {
+        position: this._pos,
+        animation: google.maps.Animation.DROP,
+        map: map
+      }
+    );
   }
 
-  toggleBounce() {
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
+  start(){
+    this.locationTracker.startTracking();
+  }
+
+  stop(){
+    this.locationTracker.stopTracking();
   }
 
   ionViewDidLoad() {

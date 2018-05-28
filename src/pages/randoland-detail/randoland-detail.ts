@@ -17,15 +17,19 @@ import { CurrentRando } from "../current-rando/current-rando";
 })
 export class RandolandDetail {
   private _rando: Rando;
-  public current: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this._rando = navParams.get("rando");
-    this.current = CurrentRando;
   }
 
   public get rando(): Rando {
     return this._rando;
+  }
+
+  goToMap(rando: Rando){
+    this.navCtrl.push(CurrentRando, {
+      rando: rando
+    });
   }
 
   ionViewDidLoad() {
