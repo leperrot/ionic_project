@@ -12,8 +12,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Randoland } from "../pages/randoland/randoland";
 import { RandolandDetail } from "../pages/randoland-detail/randoland-detail";
-import { CurrentRando } from "../pages/current-rando/current-rando";
 import { Geolocation } from "@ionic-native/geolocation";
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { CurrentRandoModule } from "../pages/current-rando/current-rando.module";
 
 @NgModule({
   declarations: [
@@ -23,12 +25,12 @@ import { Geolocation } from "@ionic-native/geolocation";
     HomePage,
     TabsPage,
     Randoland,
-    RandolandDetail,
-    CurrentRando
+    RandolandDetail
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CurrentRandoModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,13 +40,14 @@ import { Geolocation } from "@ionic-native/geolocation";
     HomePage,
     TabsPage,
     Randoland,
-    RandolandDetail,
-    CurrentRando
+    RandolandDetail
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Geolocation,
+    LocationTracker,
+    BackgroundGeolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
