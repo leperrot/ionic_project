@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
 import { RandolandDetail } from "../randoland-detail/randoland-detail";
+import {Timer} from "../../model/timer";
 
 //$IMPORTSTATEMENT
 
@@ -28,21 +29,24 @@ export class Randoland {
         "1 rue des Carpattes, 66600 Carottes City",
         "2:00",
         1000,
-        2 ),
+        2,
+        new Timer()),
       new Rando("La rando du malheur",
         "C pa ouf",
         "../../assets/imgs/croco.jpg",
         "1 rue des Carpattes, 66600 Carottes City",
         "2:00",
         1000,
-        3 ),
+        3,
+        new Timer()),
       new Rando("La rando de Tax",
         "la best de ta life ever",
         "../../assets/imgs/detax.png",
         "1 rue des Carpattes, 66600 Carottes City",
         "2:00",
         1000,
-        5 )];
+        5,
+        new Timer())];
   }
 
   goToDetail(rando: Rando) {

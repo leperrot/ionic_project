@@ -1,3 +1,5 @@
+import { Timer } from "./timer";
+
 export class Rando {
   private _name: string;
   private _desc: string;
@@ -6,8 +8,9 @@ export class Rando {
   private _temps: string;
   private _dist: number;
   private _note: number;
+  private _timer: Timer;
 
-  constructor(name?: string, desc?: string, img?: string, adresse?: string, temps?: string, dist?: number, note?: number){
+  constructor(name?: string, desc?: string, img?: string, adresse?: string, temps?: string, dist?: number, note?: number, timer?: Timer){
     this._name = name;
     this._desc = desc;
     this._img = img;
@@ -15,6 +18,11 @@ export class Rando {
     this._temps = temps;
     this._dist = dist;
     this._note = note;
+    this._timer = timer;
+  }
+
+  public get timer(): Timer {
+    return this._timer;
   }
 
   public get name(): string {

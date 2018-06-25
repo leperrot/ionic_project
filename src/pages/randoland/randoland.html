@@ -21,8 +21,8 @@
       <div>
         <p>{{rando.adresse}}</p>
         <p>{{rando.desc}}</p>
-        <span>~{{rando.temps}}</span>
-        <span>~{{rando.dist}}m</span>
+        <span>{{rando.timer.heures}}:{{rando.timer.minutes}}:{{rando.timer.secondes}}</span>
+        <span>{{rando.dist}}</span>
         <div style="display: flex;">
           <span *ngFor="let index of full_stars(rando.note)"><img src="../../assets/icon/star_full.png" class="star"/></span>
           <span *ngFor="let index of empty_stars(rando.note)"><img class="star" src="../../assets/icon/star_empty.png"/></span>

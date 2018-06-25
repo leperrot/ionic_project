@@ -42,6 +42,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.0",
+    "@ionic/cli-plugin-ionic-angular": "1.4.1",
+    "@types/googlemaps": "^3.30.9",
     "@types/jasmine": "^2.8.8",
     "@types/node": "^10.3.1",
     "angular-cli": "^1.0.0-beta.28.3",

@@ -22,6 +22,10 @@ export class CurrentRando {
   private _pos: any;
   private _marker: google.maps.Marker;
 
+  get rando(): Rando {
+    return this._rando;
+  }
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public location: LocationProvider) {
     this._rando = navParams.get("rando");
     location.getLocation().subscribe((loc) => {
@@ -35,8 +39,8 @@ export class CurrentRando {
     var map = new google.maps.Map(
       this.mapElement.nativeElement,
       {
-        center: this._pos,
-        zoom: 14
+        zoom: 20,
+        center: this._pos
       }
     );
 
@@ -60,8 +64,8 @@ export class CurrentRando {
     var request = {
       origin      : {lat: 45.7592479, lng: 3.1090747},
       destination : {lat: 45.7592479, lng: 3.1090747},
-      travelMode  : google.maps.DirectionsTravelMode.WALKING,
-      waypoints:[{location : {lat: 45.7846089, lng: 3.0827151}},{location : {lat: 45.7874894, lng: 3.0715386}}],
+      travelMode: google.maps.TravelMode.WALKING,
+      waypoints:[{location : {lat: 45.7846089, lng: 3.0827151}},{location : {lat: 45.7874894, lng: 3.0715386}}]
     };
 
     var directionsService = new google.maps.DirectionsService();
@@ -73,7 +77,12 @@ export class CurrentRando {
   }
 
   ionViewDidLoad() {
+    this._rando.timer.start();
     this.initMap();
+  }
+
+  ionViewDidLeave() {
+    this._rando.timer.stop();
   }
 
 }
