@@ -89,7 +89,7 @@ export class CurrentRando {
       panel : panel
     });
 
-    let waypoints = new Array();
+    /*let waypoints = new Array();
     this._rando.steps.forEach(s => {
       waypoints.push({location: {lat: s.lat, lng: s.lng}});
     });
@@ -99,6 +99,13 @@ export class CurrentRando {
       destination : {lat: this._rando.steps[this._rando.steps.length-1].lat, lng: this._rando.steps[this._rando.steps.length-1].lng},
       travelMode  : google.maps.TravelMode.WALKING,
       waypoints: waypoints
+    };*/
+
+    var request = {
+      origin      : { lat: 45.7846089, lng: 3.0827151},
+      destination : { lat: 45.7846089, lng: 3.0827151},
+      travelMode  : google.maps.TravelMode.WALKING,
+      waypoints:[{ location : { lat: 45.7846089, lng: 3.0827151}},{ location : { lat: 45.7874894, lng: 3.0715386}}]
     };
 
     var directionsService = new google.maps.DirectionsService();

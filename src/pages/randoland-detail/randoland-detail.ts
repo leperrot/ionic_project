@@ -94,25 +94,25 @@ export class RandolandDetail {
       panel : panel
     });
 
-    let waypoints = new Array();
+    /*let waypoints = new Array();
     this._rando.steps.forEach(s => {
-      waypoints.push({location: new google.maps.LatLng(s.lat, s.lng)});
+      waypoints.push({lat: s.lat, lng: s.lng});
     });
     let origin =  waypoints.pop();
 
     var request = {
-      origin      : origin.location,
-      destination : origin.location,
+      origin      : origin,
+      destination : origin,
       travelMode  : google.maps.TravelMode.WALKING,
-      waypoints   : waypoints
-    };
-
-    /*var request = {
-      origin      : this._pos,
-      destination : this._pos,
-      travelMode  : google.maps.TravelMode.WALKING,
-      waypoints:[{location : new google.maps.LatLng(45.7846089,3.0827151)},{location : new google.maps.LatLng(45.7874894,3.0715386)}]
+      waypoints: waypoints
     };*/
+
+    var request = {
+      origin      : { lat: 45.7846089, lng: 3.0827151},
+      destination : { lat: 45.7846089, lng: 3.0827151},
+      travelMode  : google.maps.TravelMode.WALKING,
+      waypoints:[{ location : { lat: 45.7846089, lng: 3.0827151}},{ location : { lat: 45.7874894, lng: 3.0715386}}]
+    };
 
     var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function(response, status){
