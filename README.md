@@ -1,6 +1,7 @@
 # ionic_project
 Installation :
   ionic serve à la racine
+  npm run compodoc => accès à compodoc
  
  Page de présentation des randonnées, détail d'une randonnée, participer à la randonnée
  Présentation : Affichage d'une liste de randonnées
@@ -15,3 +16,5 @@ Participation : Affichage de la carte avec la randonnée tracée
                 
 Non implémenté : Tracer de la route avec les coordonées open data : ZERO_RESULTS de google DirectionService
                   Validation de la step au passage sur une coordonnée proche
+                  
+Tests non lancés protractor ne reconnaissant pas mon téléphone
