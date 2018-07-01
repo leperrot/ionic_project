@@ -10,6 +10,8 @@ import { RandolandDetail } from "../pages/randoland-detail/randoland-detail";
 import { Geolocation } from "@ionic-native/geolocation";
 import { CurrentRandoModule } from "../pages/current-rando/current-rando.module";
 import { LocationProvider } from "../providers/location-provider";
+import { DataProvider } from '../providers/data/data';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LocationProvider } from "../providers/location-provider";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    CurrentRandoModule
+    CurrentRandoModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,7 +36,8 @@ import { LocationProvider } from "../providers/location-provider";
     SplashScreen,
     Geolocation,
     LocationProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataProvider
   ]
 })
 export class AppModule {}

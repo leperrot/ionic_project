@@ -1,24 +1,25 @@
 import { Timer } from "./timer";
+import {Step} from "./step";
 
 export class Rando {
   private _name: string;
   private _desc: string;
   private _img: string;
-  private _adresse: string;
-  private _temps: string;
-  private _dist: number;
   private _note: number;
   private _timer: Timer;
+  private _steps: Array<Step>;
 
-  constructor(name?: string, desc?: string, img?: string, adresse?: string, temps?: string, dist?: number, note?: number, timer?: Timer){
+  constructor(name?: string, desc?: string, img?: string, note?: number, timer?: Timer, steps?: Array<Step>){
     this._name = name;
     this._desc = desc;
     this._img = img;
-    this._adresse = adresse;
-    this._temps = temps;
-    this._dist = dist;
     this._note = note;
     this._timer = timer;
+    this._steps = steps;
+  }
+
+  public get steps(): Array<Step> {
+    return this._steps;
   }
 
   public get timer(): Timer {
@@ -37,24 +38,8 @@ export class Rando {
     return this._img;
   }
 
-  public get adresse(): string {
-    return this._adresse;
-  }
-
-  public get temps(): string {
-    return this._temps;
-  }
-
-  public get dist(): number {
-    return this._dist;
-  }
-
   public get note(): number {
     return this._note;
-  }
-
-  public set dist(value: number) {
-    this._dist = value;
   }
 
   public set note(value: number) {

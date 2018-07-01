@@ -3,7 +3,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
 import { CurrentRando } from "../current-rando/current-rando"
 import {LocationProvider} from "../../providers/location-provider";
-import {Step} from "../../model/step";
+import LatLng = google.maps.LatLng;
 //$IMPORTSTATEMENT
 
 /**
@@ -23,28 +23,15 @@ export class RandolandDetail {
   private _rando: Rando;
   private _pos: any;
   private _marker: google.maps.Marker;
-  private _listSteps: Array<Step>;
+  private _map;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public location: LocationProvider) {
     this._rando = navParams.get("rando");
     location.getLocation().subscribe((loc) => {
       this._pos = loc;
       this._marker ? this._marker.setPosition(loc) : location.getFirstLoc();
+      //this._map.setCenter(this._marker.getPosition());
     });
-
-    this._listSteps = [
-      new Step(1,
-        "Tourne à gauche"
-      ),
-      new Step(2,
-        "Tourne à droite"
-      ),
-      new Step(3,
-        "Va tout droit"
-      ),
-      new Step(4,
-        "ARREEETE"
-      )];
   }
 
   public get rando(): Rando {
@@ -52,7 +39,7 @@ export class RandolandDetail {
   }
 
   initMap() {
-    var map = new google.maps.Map(
+    this._map = new google.maps.Map(
       this.mapElement.nativeElement,
       {
         center: this._pos,
@@ -67,25 +54,38 @@ export class RandolandDetail {
           lng: this._pos.lng
         },
         animation: google.maps.Animation.DROP,
-        map: map
+        map: this._map
       }
     );
 
     var panel;
     var direction = new google.maps.DirectionsRenderer({
-      map   : map,
+      map   : this._map,
       panel : panel
     });
 
-    var request = {
-      origin      : {lat: 45.7592479, lng: 3.1090747},
-      destination : {lat: 45.7592479, lng: 3.1090747},
+    let waypoints = new Array();
+    this._rando.steps.forEach(s => {
+      waypoints.push({location: new LatLng(s.lat, s.lng)});
+    });
+
+    /*var request = {
+      origin      : {lat: this._rando.steps[0].lat, lng: this._rando.steps[0].lng},
+      destination : {lat: this._rando.steps[this._rando.steps.length-1].lat, lng: this._rando.steps[this._rando.steps.length-1].lng},
       travelMode  : google.maps.TravelMode.WALKING,
-      waypoints:[{location : {lat: 45.7846089, lng: 3.0827151}},{location : {lat: 45.7874894, lng: 3.0715386}}],
+      waypoints   : waypoints
+    };*/
+
+    var request = {
+      origin      : this._pos,
+      destination : this._pos,
+      travelMode  : google.maps.TravelMode.WALKING,
+      waypoints:[{location : new google.maps.LatLng(45.7846089,3.0827151)},{location : new google.maps.LatLng(45.7874894,3.0715386)}]
     };
 
     var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function(response, status){
+      console.log(status);
       if(status == google.maps.DirectionsStatus.OK){
         direction.setDirections(response);
       }
@@ -99,7 +99,6 @@ export class RandolandDetail {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RandolandDetail');
     this.initMap();
   }
 
