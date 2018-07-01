@@ -16,7 +16,7 @@ exports.config = {
     {
       // Le nom de la plateform : android | ios | windows
       platformName: 'android',
-      deviceName: 'moto X play',
+      deviceName: 'Redmi 5 Plus',
       browserName: "",
       autoWebview: true,
       // Nous indiquons ici l'emplacement vers l'application à tester, artefact de la commande `ionic build android`

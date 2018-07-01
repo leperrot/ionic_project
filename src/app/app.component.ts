@@ -10,8 +10,18 @@ import { Randoland } from "../pages/randoland/randoland";
   templateUrl: 'app.html'
 })
 export class MyApp {
+  /**
+   * Page principale
+   * @type {Randoland}
+   */
   rootPage:any = Randoland;
 
+  /**
+   * Constructeur
+   * @param {Platform} platform
+   * @param {StatusBar} statusBar
+   * @param {SplashScreen} splashScreen
+   */
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

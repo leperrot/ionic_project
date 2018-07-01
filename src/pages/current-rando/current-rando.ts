@@ -1,3 +1,7 @@
+/**
+ * Déclaration de google
+ */
+declare var google: any;
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
@@ -16,16 +20,37 @@ import { LocationProvider } from "../../providers/location-provider";
   templateUrl: 'current-rando.html',
 })
 export class CurrentRando {
+  /**
+   * Div contenant la map
+   */
   @ViewChild('map') mapElement: ElementRef;
-
+  /**
+   * Randonnée courrante
+   */
   private _rando: Rando;
+  /**
+   * Position de l'utilisateur
+   */
   private _pos: any;
-  private _marker: google.maps.Marker;
+  /**
+   * Marker de la position de l'utilisateur
+   */
+  private _marker: any;
 
+  /**
+   * Getter rando
+   * @returns {Rando}
+   */
   get rando(): Rando {
     return this._rando;
   }
 
+  /**
+   * Constructeur récupérant la randonnée et calculant la position de l'utilisateur
+   * @param {NavController} navCtrl
+   * @param {NavParams} navParams
+   * @param {LocationProvider} location
+   */
   constructor(public navCtrl: NavController, public navParams: NavParams, public location: LocationProvider) {
     this._rando = navParams.get("rando");
     location.getLocation().subscribe((loc) => {
@@ -34,6 +59,9 @@ export class CurrentRando {
     });
   }
 
+  /**
+   * Fonction d'initialisation de la carte
+   */
   initMap() {
 
     var map = new google.maps.Map(
@@ -81,11 +109,17 @@ export class CurrentRando {
     });
   }
 
+  /**
+   * Fonction démarrant le timer au chargement de la page
+   */
   ionViewDidLoad() {
     this._rando.timer.start();
     this.initMap();
   }
 
+  /**
+   * Arrêt du timer au déchargement de la page
+   */
   ionViewDidLeave() {
     this._rando.timer.stop();
   }

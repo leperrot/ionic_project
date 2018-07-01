@@ -1,9 +1,12 @@
+/**
+ * Declaration de google
+ */
+declare var google: any;
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { Rando } from "../../model/rando";
 import { CurrentRando } from "../current-rando/current-rando"
 import {LocationProvider} from "../../providers/location-provider";
-import LatLng = google.maps.LatLng;
 //$IMPORTSTATEMENT
 
 /**
@@ -18,26 +21,53 @@ import LatLng = google.maps.LatLng;
   templateUrl: 'randoland-detail.html'
 })
 export class RandolandDetail {
+  /**
+   * Div affichant la map
+   */
   @ViewChild('map') mapElement: ElementRef;
-
+  /**
+   * Randonnée courante
+   */
   private _rando: Rando;
+  /**
+   * Position de l'utilisateur
+   */
   private _pos: any;
-  private _marker: google.maps.Marker;
+  /**
+   * Marker de la position de l'utilisateur
+   */
+  private _marker: any;
+  /**
+   * Objet carte google maps
+   */
   private _map;
 
+  /**
+   * Constructeur récupérant la randonnée et calculant la position de l'utilisateur
+   * @param {NavController} navCtrl
+   * @param {NavParams} navParams
+   * @param {LocationProvider} location
+   */
   constructor(public navCtrl: NavController, public navParams: NavParams, public location: LocationProvider) {
     this._rando = navParams.get("rando");
     location.getLocation().subscribe((loc) => {
       this._pos = loc;
       this._marker ? this._marker.setPosition(loc) : location.getFirstLoc();
-      //this._map.setCenter(this._marker.getPosition());
+      this._map ? this._map.setCenter(this._marker.getPosition()) : null;
     });
   }
 
+  /**
+   * Getter rando
+   * @returns {Rando}
+   */
   public get rando(): Rando {
     return this._rando;
   }
 
+  /**
+   * Fonction d'initialisation de la carte
+   */
   initMap() {
     this._map = new google.maps.Map(
       this.mapElement.nativeElement,
@@ -66,22 +96,23 @@ export class RandolandDetail {
 
     let waypoints = new Array();
     this._rando.steps.forEach(s => {
-      waypoints.push({location: new LatLng(s.lat, s.lng)});
+      waypoints.push({location: new google.maps.LatLng(s.lat, s.lng)});
     });
-
-    /*var request = {
-      origin      : {lat: this._rando.steps[0].lat, lng: this._rando.steps[0].lng},
-      destination : {lat: this._rando.steps[this._rando.steps.length-1].lat, lng: this._rando.steps[this._rando.steps.length-1].lng},
-      travelMode  : google.maps.TravelMode.WALKING,
-      waypoints   : waypoints
-    };*/
+    let origin =  waypoints.pop();
 
     var request = {
+      origin      : origin.location,
+      destination : origin.location,
+      travelMode  : google.maps.TravelMode.WALKING,
+      waypoints   : waypoints
+    };
+
+    /*var request = {
       origin      : this._pos,
       destination : this._pos,
       travelMode  : google.maps.TravelMode.WALKING,
       waypoints:[{location : new google.maps.LatLng(45.7846089,3.0827151)},{location : new google.maps.LatLng(45.7874894,3.0715386)}]
-    };
+    };*/
 
     var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function(response, status){
@@ -92,20 +123,37 @@ export class RandolandDetail {
     });
   }
 
+  /**
+   * Fonction de navigation vers CurrentRando
+   * @param {Rando} rando
+   */
   goToMap(rando: Rando){
     this.navCtrl.push(CurrentRando, {
       rando: rando
     });
   }
 
+  /**
+   * Fonction initialisant la carte au chargement de la carte
+   */
   ionViewDidLoad() {
     this.initMap();
   }
 
+  /**
+   * Retourne un tableau
+   * @param {number} num
+   * @returns {any[]}
+   */
   full_stars(num: number){
     return new Array(num);
   }
 
+  /**
+   * Retourne un tableau
+   * @param {number} num
+   * @returns {any[]}
+   */
   empty_stars(num: number){
     return new Array(5-num);
   }
